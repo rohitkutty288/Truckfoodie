@@ -1,0 +1,23 @@
+name: Deploy to Staging
+
+on:
+  push:
+    branches:
+      - staging
+  workflow_dispatch:  # Allows manual trigger from the GitHub Actions UI
+
+jobs:
+  deploy-staging:
+    name: Deploy to Staging
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Start Staging Deployment
+        run: echo "Staging deployment started."
+      
+      - name: Update project_name
+        run: |
+          ssh Truckfoodie@20.244.108.73 'cd /var/www/html/Truckfoodie; git pull origin staging'
+      
+      - name: Confirm Success
+        run: echo "Deployment Succeeded."
